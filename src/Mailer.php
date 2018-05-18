@@ -3,14 +3,15 @@
 namespace Kinglozzer\SilverStripeMailgunner;
 
 use Debug;
-use Exception;
-use Mailer as SilverstripeMailer;
-use Mailgun\HttpClientConfigurator;
-use Mailgun\Mailgun;
-use Mailgun\Messages\BatchMessage;
-use Mailgun\Messages\MessageBuilder;
 use SS_Log;
+use Convert;
+use Exception;
 use SapphireTest;
+use Mailgun\Mailgun;
+use Mailer as SilverstripeMailer;
+use Mailgun\Messages\BatchMessage;
+use Mailgun\HttpClientConfigurator;
+use Mailgun\Messages\MessageBuilder;
 
 class Mailer extends SilverstripeMailer
 {
@@ -121,7 +122,7 @@ class Mailer extends SilverstripeMailer
         } else {
             $builder = $client->MessageBuilder();
         }
-
+        
         try {
             $this->buildMessage($builder, $to, $from, $subject, $content, $plainContent, $attachments, $headers);
 
@@ -173,6 +174,10 @@ class Mailer extends SilverstripeMailer
         $parsedFrom = $this->parseAddresses($from);
         foreach ($parsedFrom as $email => $name) {
             $builder->setFromAddress($email, ['full_name' => $name]);
+        }
+
+        if (empty($plainContent)) {
+            $plainContent = Convert::xml2raw($content);
         }
 
         $builder->setSubject($subject);
