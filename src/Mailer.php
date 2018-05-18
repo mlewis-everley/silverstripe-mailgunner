@@ -122,7 +122,7 @@ class Mailer extends SilverstripeMailer
         } else {
             $builder = $client->MessageBuilder();
         }
-        
+
         try {
             $this->buildMessage($builder, $to, $from, $subject, $content, $plainContent, $attachments, $headers);
 
