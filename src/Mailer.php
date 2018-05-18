@@ -2,16 +2,16 @@
 
 namespace Kinglozzer\SilverStripeMailgunner;
 
-use Debug;
-use SS_Log;
 use Convert;
+use Debug;
 use Exception;
-use SapphireTest;
-use Mailgun\Mailgun;
 use Mailer as SilverstripeMailer;
-use Mailgun\Messages\BatchMessage;
 use Mailgun\HttpClientConfigurator;
+use Mailgun\Mailgun;
+use Mailgun\Messages\BatchMessage;
 use Mailgun\Messages\MessageBuilder;
+use SS_Log;
+use SapphireTest;
 
 class Mailer extends SilverstripeMailer
 {
